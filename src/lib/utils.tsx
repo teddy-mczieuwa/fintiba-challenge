@@ -72,9 +72,7 @@ const validIBANs = [
   "ME54484927725713139454",
 ];
 
-// Simulate user input with a typo
 const userInputIBAN = "ME25505000012345678950"; // Last digit is mistyped
 
-// Get a suggested IBAN
 const suggestion = suggestCorrectIBAN(userInputIBAN, validIBANs);
 console.log("Did you mean:", suggestion);

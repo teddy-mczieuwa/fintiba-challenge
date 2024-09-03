@@ -34,10 +34,12 @@ const App: React.FC = () => {
   const [iban, setIban] = useState("");
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [history, setHistory] = useState<IBANHistory[]>([]);
+  const [suggestion, setSuggestions] = useState<string | null>(null);
 
   const handleValidate = (iban: string): void => {
-    const suggestion = suggestCorrectIBAN(iban, validIBANs);
-    console.log("Did you mean:", suggestion);
+    const suggestedIbans = suggestCorrectIBAN(iban, validIBANs);
+    setSuggestions(suggestedIbans);
+    console.log("Did you mean:", suggestedIbans);
 
     setIban(iban);
     const result = validateIban(iban);
@@ -56,7 +58,12 @@ const App: React.FC = () => {
   return (
     <Container>
       <Title>IBAN Checker</Title>
-      <IBANInput onValidate={handleValidate} iban={iban} isValid={isValid} />
+      <IBANInput
+        onValidate={handleValidate}
+        iban={iban}
+        isValid={isValid}
+        suggestion={suggestion}
+      />
       <ValidationHistory history={history} />
     </Container>
   );

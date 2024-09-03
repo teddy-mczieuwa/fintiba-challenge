@@ -17,6 +17,7 @@ describe("IBANInput component", () => {
         onValidate={onValidateMock}
         iban="ME25505000012345678951"
         isValid={null}
+        suggestion={null}
       />
     );
 
@@ -26,7 +27,14 @@ describe("IBANInput component", () => {
   });
 
   it.skip("should call onValidate function when input value changes", async () => {
-    render(<IBANInput onValidate={onValidateMock} iban="" isValid={null} />);
+    render(
+      <IBANInput
+        onValidate={onValidateMock}
+        iban=""
+        isValid={null}
+        suggestion={null}
+      />
+    );
 
     const inputElement = screen.getByPlaceholderText("Enter Montenegro IBAN");
 
@@ -36,7 +44,14 @@ describe("IBANInput component", () => {
   });
 
   it.skip("should not allow input value longer than 22 characters", async () => {
-    render(<IBANInput onValidate={onValidateMock} iban="" isValid={null} />);
+    render(
+      <IBANInput
+        onValidate={onValidateMock}
+        iban=""
+        isValid={null}
+        suggestion={null}
+      />
+    );
 
     const inputElement = screen.getByLabelText("IBAN");
     console.log("inputelement: ", inputElement);
@@ -47,7 +62,14 @@ describe("IBANInput component", () => {
   });
 
   it("should display the correct label", () => {
-    render(<IBANInput onValidate={onValidateMock} iban="" isValid={null} />);
+    render(
+      <IBANInput
+        onValidate={onValidateMock}
+        iban=""
+        isValid={null}
+        suggestion={null}
+      />
+    );
 
     const labelElement = screen.getByLabelText("IBAN");
     expect(labelElement).toBeInTheDocument();

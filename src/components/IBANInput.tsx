@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { MediaQuery } from "../devices";
 import InputValidation from "./InputValidation";
+import Suggestion from "./Suggestion";
 
 interface IBANInputProps {
   onValidate: (iban: string) => void;
   iban: string;
   isValid: Boolean | null;
+  suggestion: string | null;
 }
 
 const InputContainer = styled.div`
@@ -41,7 +43,12 @@ const Input = styled.input`
   text-align: center;
 `;
 
-const IBANInput: React.FC<IBANInputProps> = ({ onValidate, iban, isValid }) => {
+const IBANInput: React.FC<IBANInputProps> = ({
+  onValidate,
+  iban,
+  isValid,
+  suggestion,
+}) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     onValidate(e.target.value.toUpperCase());
   };
@@ -60,6 +67,7 @@ const IBANInput: React.FC<IBANInputProps> = ({ onValidate, iban, isValid }) => {
         />
       </InputContainer>
       <InputValidation isValid={isValid} />
+      {!isValid && <Suggestion suggestion={suggestion} />}
     </>
   );
 };
