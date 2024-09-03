@@ -63,16 +63,3 @@ export const suggestCorrectIBAN = (
 
   return suggestedIBAN;
 };
-
-const validIBANs = [
-  "ME25505000012345678951",
-  "ME71115289191969753931",
-  "ME25273677988565748337",
-  "ME56975893545516857574",
-  "ME54484927725713139454",
-];
-
-const userInputIBAN = "ME25505000012345678950"; // Last digit is mistyped
-
-const suggestion = suggestCorrectIBAN(userInputIBAN, validIBANs);
-console.log("Did you mean:", suggestion);
