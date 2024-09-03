@@ -19,3 +19,62 @@ export const validateIban = (iban: string): boolean => {
 
   return Number(remainder) % 97 === 1;
 };
+
+function levenshteinDistance(s1: string, s2: string) {
+  const len1 = s1.length;
+  const len2 = s2.length;
+  const matrix = [];
+
+  for (let i = 0; i <= len1; i++) {
+    matrix[i] = [i];
+  }
+  for (let j = 0; j <= len2; j++) {
+    matrix[0][j] = j;
+  }
+
+  for (let i = 1; i <= len1; i++) {
+    for (let j = 1; j <= len2; j++) {
+      const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+      matrix[i][j] = Math.min(
+        matrix[i - 1][j] + 1,
+        matrix[i][j - 1] + 1,
+        matrix[i - 1][j - 1] + cost
+      );
+    }
+  }
+
+  return matrix[len1][len2];
+}
+
+export const suggestCorrectIBAN = (
+  userInputIBAN: string,
+  validIBANs: string[]
+) => {
+  let minDistance = Infinity;
+  let suggestedIBAN = null;
+
+  for (let iban of validIBANs) {
+    const distance = levenshteinDistance(userInputIBAN, iban);
+    if (distance < minDistance) {
+      minDistance = distance;
+      suggestedIBAN = iban;
+    }
+  }
+
+  return suggestedIBAN;
+};
+
+const validIBANs = [
+  "ME25505000012345678951",
+  "ME71115289191969753931",
+  "ME25273677988565748337",
+  "ME56975893545516857574",
+  "ME54484927725713139454",
+];
+
+// Simulate user input with a typo
+const userInputIBAN = "ME25505000012345678950"; // Last digit is mistyped
+
+// Get a suggested IBAN
+const suggestion = suggestCorrectIBAN(userInputIBAN, validIBANs);
+console.log("Did you mean:", suggestion);

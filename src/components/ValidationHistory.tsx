@@ -64,13 +64,13 @@ const HistoryItemIBAN = styled.p`
   margin-bottom: 15px;
 `;
 
-const HistoryItemValidity = styled.span<{ isvalid: Number }>`
+const HistoryItemValidity = styled("span")<{ $isvalid: Boolean }>`
   display: inline-block;
   padding: 0.2rem 0.4rem;
   color: white;
   font-size: 0.8rem;
   border-radius: 5px;
-  background-color: ${(p) => (p.isvalid ? "green" : "red")};
+  background-color: ${(p) => (p.$isvalid ? "green" : "red")};
 `;
 
 const HistoryItemDate = styled.span`
@@ -110,7 +110,7 @@ const ValidationHistory: React.FC<ValidationHistoryProps> = ({ history }) => {
             history.map((value, index) => (
               <HistoryItem key={index}>
                 <HistoryItemIBAN>{value.iban}</HistoryItemIBAN>
-                <HistoryItemValidity isvalid={value.isValid ? 1 : 0}>
+                <HistoryItemValidity $isvalid={value.isValid}>
                   {value.isValid ? "Valid" : "Invalid"}
                 </HistoryItemValidity>
                 {renderTime(value)}

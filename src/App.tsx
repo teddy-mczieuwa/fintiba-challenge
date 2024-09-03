@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import IBANInput from "./components/IBANInput";
 import ValidationHistory from "./components/ValidationHistory";
-import { validateIban } from "./lib/utils";
+import { validateIban, suggestCorrectIBAN } from "./lib/utils";
 import styled from "styled-components";
 
 interface IBANHistory {
@@ -22,12 +22,23 @@ const Title = styled.h1`
   padding: 10px 0;
   text-align: center;
 `;
+const validIBANs = [
+  "ME25505000012345678951",
+  "ME71115289191969753931",
+  "ME25273677988565748337",
+  "ME56975893545516857574",
+  "ME54484927725713139454",
+];
+
 const App: React.FC = () => {
   const [iban, setIban] = useState("");
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const [history, setHistory] = useState<IBANHistory[]>([]);
 
   const handleValidate = (iban: string): void => {
+    const suggestion = suggestCorrectIBAN(iban, validIBANs);
+    console.log("Did you mean:", suggestion);
+
     setIban(iban);
     const result = validateIban(iban);
     setIsValid(result);
