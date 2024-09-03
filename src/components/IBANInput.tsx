@@ -67,7 +67,7 @@ const IBANInput: React.FC<IBANInputProps> = ({
         />
       </InputContainer>
       <InputValidation isValid={isValid} />
-      {!isValid && <Suggestion suggestion={suggestion} />}
+      {isValid === false && <Suggestion suggestion={suggestion} />}
     </>
   );
 };
